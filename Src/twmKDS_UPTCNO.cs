@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TWM_KDS_AddOn
 {
-    [Form("twmKDS_UPTCNO", true, "Update Carton No.", SBOAddon.gcAddOnName,1)]
+    [Form("twmKDS_UPTCNO", true, "Update Carton No.", SBOAddon.gcAddOnName,4)]
     //[Authorization("twmOPS_DBTST", "DB Trans Setup", SBOAddon.gcAddOnName, SAPbobsCOM.BoUPTOptions.bou_FullReadNone)]
     public class twmKDS_UPTCNO
     {

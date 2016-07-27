@@ -85,22 +85,22 @@ namespace TWM_KDS_AddOn
                 eCommon.SBO_Application.Menus.Item("43520").SubMenus.Add(SBOAddon.gcAddOnName, gcAddonString, BoMenuType.mt_POPUP, 99);
                 // Change if needed ---------------------------
 
+                List<FormAttribute> oList = new List<FormAttribute>();
                 foreach (string Key in Forms.Keys)
                 {
                     FormAttribute oAttr = (FormAttribute)Forms[Key];
                     if (oAttr.HasMenu)
                     {
                        if (eCommon.SBO_Application.Menus.Exists(oAttr.FormType)) eCommon.SBO_Application.Menus.RemoveEx(oAttr.FormType);
-                       eCommon.SBO_Application.Menus.Item(oAttr.ParentMenu).SubMenus.Add(oAttr.FormType, oAttr.MenuName, BoMenuType.mt_STRING, oAttr.Position);
-
-                       //SAPbouiCOM.MenuCreationParams oCreationPackage = ((SAPbouiCOM.MenuCreationParams)(eCommon.SBO_Application.CreateObject(SAPbouiCOM.BoCreatableObjectType.cot_MenuCreationParams)));
-                       //oCreationPackage.Type = SAPbouiCOM.BoMenuType.mt_STRING;
-                       //oCreationPackage.UniqueID = oAttr.FormType;
-                       //oCreationPackage.String = oAttr.MenuName;
-                       //oCreationPackage.Position = oAttr.Position;
-                       //eCommon.SBO_Application.Menus.Item(oAttr.ParentMenu).SubMenus.AddEx(oCreationPackage);
+                       oList.Add(oAttr); 
                     }
                 }
+
+                oList.Sort((n1,n2) => n1.Position.CompareTo(n2.Position));
+                //Add the menu
+                foreach (FormAttribute oAttr in oList)
+                    eCommon.SBO_Application.Menus.Item(oAttr.ParentMenu).SubMenus.Add(oAttr.FormType, oAttr.MenuName, BoMenuType.mt_STRING, oAttr.Position);
+
 
                 try
                 {
